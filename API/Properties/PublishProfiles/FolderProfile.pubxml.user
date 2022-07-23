@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Code\dotnet\Sensor\Sensor.API\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2022-07-21T07:58:36.2160064Z;True|2022-07-21T10:02:18.4530675+03:00;</History>
+  </PropertyGroup>
+</Project>

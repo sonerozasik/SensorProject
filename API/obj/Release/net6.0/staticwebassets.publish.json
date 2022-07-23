@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "6PcXnRvieyTMFCM0Ylq5leJ9bnQluLwRuJj3uuZsY3Q=",
+  "Source": "Sensor.API",
+  "BasePath": "_content/Sensor.API",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

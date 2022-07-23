@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "MFdoSGIo3GrVNX9YymGvU7L5nRkpq31sVww+FGZDrqs=",
+  "Source": "Sensor.API",
+  "BasePath": "_content/Sensor.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
