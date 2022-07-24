@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const koyumavi = Color(0xFF22577E);
-const acikmavi = Color(0xFF5584AC);
-const suyesilimsi = Color(0xFF95D1CC);
+const koyumavi = Color.fromARGB(255, 103, 149, 182);
+const acikmavi = Color.fromARGB(255, 186, 201, 214);
+const suyesilimsi = Color.fromARGB(255, 150, 206, 201);
 const beige = Color(0xFFF6F2D4);
 
 final kHintTextStyle = TextStyle(
@@ -17,12 +17,12 @@ final kLabelStyle = TextStyle(
 );
 
 final kBoxDecorationStyle = BoxDecoration(
-  color: Color(0xFF5584AC),
-  borderRadius: BorderRadius.circular(10.0),
+  color: Color.fromARGB(255, 46, 100, 114),
+  borderRadius: BorderRadius.circular(20.0),
   boxShadow: [
     BoxShadow(
-      color: Colors.black12,
-      blurRadius: 6.0,
+      color: Color.fromARGB(255, 65, 126, 150),
+      blurRadius: 2.0,
       offset: Offset(0, 2),
     ),
   ],
