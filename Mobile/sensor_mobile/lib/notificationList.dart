@@ -137,7 +137,7 @@ class AlertList extends StatelessWidget {
           title,
           style: const TextStyle(
             color: Colors.white,
-            fontSize: 25.0,
+            fontSize: 28.0,
             fontWeight: FontWeight.w600,
           ),
         ),
