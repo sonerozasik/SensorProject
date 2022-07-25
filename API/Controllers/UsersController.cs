@@ -76,7 +76,7 @@ namespace Sensor.API.Controllers
 
             if (userExist)
             {
-                return null;
+                return BadRequest();
             }
 
 
