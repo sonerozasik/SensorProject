@@ -61,11 +61,9 @@ namespace Sensor.API.Controllers
         }
 
 
-
-        [HttpPut("changeUsername")]
+        [HttpPut("changeUsername/{newUsername}/{oldUsername}")]
         public async Task<ActionResult> UpdateUsername(string newUsername, string oldUsername)
         {
-            //todo username key olduğu için değişmedi. key değiştiriliebilir (user ıd)
             var currentUser = await _context.Users.FirstOrDefaultAsync(u => u.username == oldUsername);
 
 
@@ -78,7 +76,7 @@ namespace Sensor.API.Controllers
 
             if (userExist)
             {
-                return BadRequest();
+                return null;
             }
 
 
@@ -89,7 +87,7 @@ namespace Sensor.API.Controllers
             return Ok(currentUser);
         }
 
-        [HttpPut("changePassword")]
+        [HttpPut("changePassword/{newPassword}/{oldPassword}/{username}")]
         public async Task<ActionResult> UpdatePassword(string newPassword, string oldPassword, string username)
         {
 
