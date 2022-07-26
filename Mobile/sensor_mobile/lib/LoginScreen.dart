@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sensor_mobile/SignUpScreen.dart';
+import 'package:sensor_mobile/apiviewScreen.dart';
 import 'package:sensor_mobile/constants.dart';
 
 import 'home_dashboard.dart';
@@ -192,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 5.0,
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => homeScreen()));
+              context, MaterialPageRoute(builder: (context) => ApiScreen()));
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
