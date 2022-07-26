@@ -1,7 +1,49 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class StatsGrid extends StatelessWidget {
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:sensor_mobile/lineChart.dart';
+import 'package:sensor_mobile/models/post.dart';
+import 'package:sensor_mobile/services/remote_service.dart';
+
+class StatsGrid extends StatefulWidget {
   @override
+  _StatsGridState createState() => _StatsGridState();
+}
+
+class _StatsGridState extends State<StatsGrid> {
+  List<Post>? posts;
+  Timer? timer;
+  var isLoaded = false;
+  var len = 0;
+  var lastheat = 0;
+  var lastbattery = 0;
+  List<FlSpot>? spots = [FlSpot(2.0, 3.0)];
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(const Duration(seconds: 5), (Timer t) => getData());
+  }
+
+  getData() async {
+    posts = await RemoteService().getPosts();
+    if (posts != null) {
+      setState(() {
+        isLoaded = true;
+        len = posts!.length;
+        lastheat = posts![len - 1].sicaklik;
+        lastbattery = posts![len - 1].pil;
+      });
+      spots!.add(FlSpot(2, posts![2].pil.toDouble()));
+      print(spots);
+    }
+  }
+
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.15,
@@ -13,11 +55,11 @@ class StatsGrid extends StatelessWidget {
           Flexible(
             child: Row(
               children: <Widget>[
-                _buildStatCard('Last Heat Value', '32 Degree',
+                _buildStatCard('Last Heat Value', lastheat.toString() + "°",
                     Color.fromARGB(255, 115, 148, 170)),
                 _buildStatCard(
                   'Battery Life',
-                  '54%',
+                  lastbattery.toString() + '%',
                   Color.fromARGB(255, 63, 139, 158),
                 ),
               ],
@@ -51,6 +93,7 @@ class StatsGrid extends StatelessWidget {
             ),
             Text(
               count,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20.0,

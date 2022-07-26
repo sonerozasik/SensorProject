@@ -193,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 5.0,
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ApiScreen()));
+              context, MaterialPageRoute(builder: (context) => homeScreen()));
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
