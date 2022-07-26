@@ -87,6 +87,33 @@ namespace Sensor.API.Controllers
             return Ok(currentUser);
         }
 
+
+        [HttpPut("{id}/changePassword")]
+        public async Task<ActionResult> ChangePassword(int id, ChangePasswordModel changePass)
+        {
+            // altta bulunan PUT metotuna alternatif. Url kısmında eski ve yeni şifre bilgilerinin görünmemesi için.
+            var user = await _context.Users.FindAsync(id);
+
+            if (user is null)
+            {
+                return NotFound();
+            }
+
+
+            if (HashPassword(changePass.CurrentPassword) != user.password)
+            {
+                return BadRequest();
+            }
+
+            user.password = HashPassword(changePass.NewPassword);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(user);
+        }
+
+
+
         [HttpPut("changePassword/{newPassword}/{oldPassword}/{username}")]
         public async Task<ActionResult> UpdatePassword(string newPassword, string oldPassword, string username)
         {

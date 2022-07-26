@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KHLlDEeWN++zRFlUXphn3hmEyRIh89yUrXMj6buUY2ccCfY8nI9ZOEthvi4BDJxGE2/7Ff2GymRsZ+Mag5n/GA==",
+  "dgSpecHash": "bsXl/n8lO/ncG8gZ9YKCdgl8Uor1b+XO2aeEvjRrr6adxCUKGPE5GLr7887OACjVXuhUjLWypajXrMqMQChn7A==",
   "success": true,
-  "projectFilePath": "D:\\Code\\dotnet\\Sensor\\Sensor.API\\Sensor.API.csproj",
+  "projectFilePath": "C:\\Users\\esatn\\OneDrive\\Resimler\\Masaüstü\\stjprojeyeni\\SensorProject\\API\\Sensor.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\esatn\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\esatn\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

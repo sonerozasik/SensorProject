@@ -9790,11 +9790,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Code\\dotnet\\Sensor\\Sensor.API\\Sensor.API.csproj",
+      "projectUniqueName": "C:\\Users\\esatn\\OneDrive\\Resimler\\Masaüstü\\stjprojeyeni\\SensorProject\\API\\Sensor.API.csproj",
       "projectName": "Sensor.API",
-      "projectPath": "D:\\Code\\dotnet\\Sensor\\Sensor.API\\Sensor.API.csproj",
+      "projectPath": "C:\\Users\\esatn\\OneDrive\\Resimler\\Masaüstü\\stjprojeyeni\\SensorProject\\API\\Sensor.API.csproj",
       "packagesPath": "C:\\Users\\esatn\\.nuget\\packages\\",
-      "outputPath": "D:\\Code\\dotnet\\Sensor\\Sensor.API\\obj\\",
+      "outputPath": "C:\\Users\\esatn\\OneDrive\\Resimler\\Masaüstü\\stjprojeyeni\\SensorProject\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\esatn\\AppData\\Roaming\\NuGet\\NuGet.Config",
