@@ -3,6 +3,7 @@ import 'package:sensor_mobile/customAppBar.dart';
 import 'package:sensor_mobile/dashboard_grid.dart';
 import 'package:sensor_mobile/lineChart.dart';
 import 'package:sensor_mobile/notificationList.dart';
+import 'package:sensor_mobile/timeline.dart';
 
 class homeScreen extends StatefulWidget {
   _homeScreenState createState() => _homeScreenState();
@@ -32,6 +33,12 @@ class _homeScreenState extends State<homeScreen> {
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               sliver: SliverToBoxAdapter(
                 child: AlertList(),
+              ),
+            ),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              sliver: SliverToBoxAdapter(
+                child: TimeLine(),
               ),
             ),
           ]),
