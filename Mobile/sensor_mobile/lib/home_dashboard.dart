@@ -23,7 +23,7 @@ class _homeScreenState extends State<homeScreen> {
                 child: StatsGrid(),
               ),
             ),
-            const SliverPadding(
+            SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               sliver: SliverToBoxAdapter(
                 child: LineChartView(),

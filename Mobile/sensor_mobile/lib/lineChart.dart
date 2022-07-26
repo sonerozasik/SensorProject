@@ -1,8 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:sensor_mobile/dashboard_grid.dart';
 
 class LineChartView extends StatelessWidget {
-  const LineChartView({Key? key}) : super(key: key);
+  LineChartView({Key? key}) : super(key: key);
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
@@ -49,32 +50,7 @@ class LineChartView extends StatelessWidget {
                   lineTouchData: LineTouchData(enabled: false),
                   lineBarsData: [
                     LineChartBarData(
-                      spots: const [
-                        FlSpot(0, 0),
-                        FlSpot(1, 3),
-                        FlSpot(2, 4),
-                        FlSpot(3, 5),
-                        FlSpot(4, 8),
-                        FlSpot(5, 3),
-                        FlSpot(6, 5),
-                        FlSpot(7, 8),
-                        FlSpot(8, 4),
-                        FlSpot(9, 7),
-                        FlSpot(10, 7),
-                        FlSpot(11, 8),
-                        FlSpot(12, 0),
-                        FlSpot(13, 3),
-                        FlSpot(14, 4),
-                        FlSpot(15, 5),
-                        FlSpot(16, 8),
-                        FlSpot(17, 3),
-                        FlSpot(18, 5),
-                        FlSpot(19, 8),
-                        FlSpot(20, 4),
-                        FlSpot(21, 7),
-                        FlSpot(22, 7),
-                        FlSpot(23, 8),
-                      ],
+                      spots: StatsGrid.spots,
                       isCurved: true,
                       barWidth: 2,
                       color: Colors.black,
