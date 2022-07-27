@@ -35,7 +35,6 @@ namespace Sensor.API.Controllers
                 return NotFound();
             }
 
-
             return await _context.Records.ToListAsync();
         }
 
@@ -43,7 +42,7 @@ namespace Sensor.API.Controllers
 
         // Filtreleme
         // GET: api/SensorRecords/5
-        [HttpGet("{id}")]
+        [HttpGet("getRecords/{id}")]
         [ActionName("GetRecordsById")]
         public async Task<ActionResult<IEnumerable<SensorRecord>>> GetSensorRecord(int id)
         {
@@ -54,7 +53,19 @@ namespace Sensor.API.Controllers
         }
 
 
-        
+
+        [HttpGet("getLastNRecord/{id}/{n}")]
+        [ActionName("GetLastRecordById")]
+        public async Task<ActionResult<IEnumerable<SensorRecord>>> GetLastRecordById(int id,int n)
+        {
+
+            var records = await _context.Records.Where(r => r.cihazId == id).OrderByDescending(y=>y.Date).Take(n).ToListAsync();
+
+            return Ok(records);
+        }
+
+
+
         [HttpGet("byDate/{id}/{lastXDays}")]
         public async Task<ActionResult<IEnumerable<SensorRecord>>> GetRecordsByDate(int id, int lastXDays)
         {
