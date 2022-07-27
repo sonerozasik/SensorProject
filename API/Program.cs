@@ -3,7 +3,7 @@ using Sensor.API.AutoMapper;
 using Sensor.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("FileZilla");
+var connectionString = builder.Configuration.GetConnectionString("Url");
 
 
 // Add services to the container.
