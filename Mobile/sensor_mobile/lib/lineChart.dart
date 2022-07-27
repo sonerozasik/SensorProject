@@ -33,6 +33,9 @@ class LineChartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<FlSpot>? spo = StatsGrid.spots;
+
+    print(spo);
     return Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -42,24 +45,25 @@ class LineChartView extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Container(
               padding: EdgeInsets.only(bottom: 0, top: 15, right: 15, left: 15),
-              height: 200,
+              height: 300,
               width: MediaQuery.of(context).size.height * 1.5,
               child: LineChart(
                 LineChartData(
-                  maxY: 10,
-                  lineTouchData: LineTouchData(enabled: false),
+                  maxX: 9.5,
+                  maxY: StatsGrid.maxheat + 5,
+                  lineTouchData: LineTouchData(enabled: true),
                   lineBarsData: [
                     LineChartBarData(
-                      spots: StatsGrid.spots,
+                      spots: spo,
                       isCurved: true,
                       barWidth: 2,
-                      color: Colors.black,
+                      color: Color.fromARGB(255, 113, 158, 195),
                       dotData: FlDotData(
-                        show: false,
+                        show: true,
                       ),
                     ),
                   ],
-                  minY: 0,
+                  minY: StatsGrid.minheat - 5,
                   titlesData: FlTitlesData(
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
@@ -72,7 +76,7 @@ class LineChartView extends StatelessWidget {
                       sideTitles: SideTitles(
                         showTitles: true,
                         getTitlesWidget: leftTitleWidgets,
-                        interval: 1,
+                        interval: 5,
                         reservedSize: 30,
                       ),
                     ),
@@ -86,7 +90,7 @@ class LineChartView extends StatelessWidget {
                   gridData: FlGridData(
                     show: true,
                     drawVerticalLine: false,
-                    horizontalInterval: 1,
+                    horizontalInterval: 3,
                   ),
                 ),
               ),

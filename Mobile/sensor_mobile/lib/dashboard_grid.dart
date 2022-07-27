@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,10 @@ import 'package:sensor_mobile/models/post.dart';
 import 'package:sensor_mobile/services/remote_service.dart';
 
 class StatsGrid extends StatefulWidget {
+  static List<FlSpot>? spots = [FlSpot(0.0, 0.0)];
+  static double minheat = 3000;
+  static double maxheat = 0;
+
   @override
   _StatsGridState createState() => _StatsGridState();
 }
@@ -18,7 +23,7 @@ class _StatsGridState extends State<StatsGrid> {
   var len = 0;
   var lastheat = 0;
   var lastbattery = 0;
-  List<FlSpot>? spots = [FlSpot(2.0, 3.0)];
+
   @override
   void initState() {
     super.initState();
@@ -34,8 +39,18 @@ class _StatsGridState extends State<StatsGrid> {
         lastheat = posts![len - 1].sicaklik;
         lastbattery = posts![len - 1].pil;
       });
-      spots!.add(FlSpot(2, posts![2].pil.toDouble()));
-      print(spots);
+      StatsGrid.spots!.clear();
+      for (int i = 0; i < 10; i++) {
+        StatsGrid.spots!
+            .add(FlSpot(i.toDouble(), posts![len - i - 1].pil.toDouble()));
+        if (posts![len - i - 1].pil.toDouble() > StatsGrid.maxheat) {
+          StatsGrid.maxheat = posts![len - i - 1].pil.toDouble();
+        }
+        if (posts![len - i - 1].pil.toDouble() < StatsGrid.minheat) {
+          StatsGrid.minheat = posts![len - i - 1].pil.toDouble();
+        }
+      }
+      print(StatsGrid.spots);
     }
   }
 
