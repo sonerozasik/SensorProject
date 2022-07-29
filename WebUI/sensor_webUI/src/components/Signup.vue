@@ -1,5 +1,9 @@
 <template>
   <div class="vue-tempalte">
+    <div class="vertical-center">
+        <div class="inner-block">
+          
+      
     <form>
       <h3>Sign Up</h3>
 
@@ -17,7 +21,7 @@
         <label>Password</label>
         <input type="password" class="form-control form-control-lg" />
       </div>
-
+<br>
       <button type="submit" class=" btn-dark btn-lg btn-block gonder">
         Sign Up
       </button>
@@ -27,7 +31,8 @@
         <router-link :to="{ name: 'login' }">sign in?</router-link>
       </p>
     </form>
-  </div>
+  </div>  </div>
+      </div>
 </template>
 
 <script>

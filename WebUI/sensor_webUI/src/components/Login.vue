@@ -1,5 +1,9 @@
 <template>
   <div class="vue-tempalte">
+    <div class="vertical-center">
+        <div class="inner-block">
+        
+       
     <form>
       <h3>Login</h3>
 
@@ -12,7 +16,8 @@
         <label>Password</label>
         <input type="password" class="form-control form-control-lg" i v-model="passwordText"/>
       </div>
-
+      
+<br>
       <button type="submit" class="btn-dark btn-lg btn-block gonder">
         Sign In
       </button>
@@ -21,11 +26,11 @@
         Already registered
         <router-link :to="{ name: 'signup' }">sign up?</router-link>
       </p>
-      <p class="forgot-password text-right mt-2 mb-4">
-        <router-link to="/forgot-password">Forgot password ?</router-link>
-      </p>
     </form>
-  </div>
+  </div> </div>
+      </div>
+     
+
 </template>
 
 <script>

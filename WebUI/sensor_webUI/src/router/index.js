@@ -14,11 +14,7 @@ const routes = [
     name: 'signup',
     component: () => import('../components/Signup.vue'),
   },
-  {
-    path: '/forgot-password',
-    name: 'forgot-password',
-    component: () => import('../components/ForgotPassword.vue'),
-  },
+  
   {
     path: '/dashboard',
     name: 'dashboard',
