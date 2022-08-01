@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   fl_chart: ^0.55.0
   flutter_live_data: ^2.1.0
-  time_chart: ^0.5.2
+  time_chart: 
   http: ^0.13.4
 
 dev_dependencies:
