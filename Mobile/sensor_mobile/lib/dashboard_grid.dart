@@ -21,10 +21,10 @@ class _StatsGridState extends State<StatsGrid> {
   void initState() {
     super.initState();
     // timer = Timer.periodic(const Duration(seconds: 5), (Timer t) => getData());
-    getData();
+    getdata1();
   }
 
-  getData() async {
+  getdata1() async {
     posts = await RemoteService().getPosts();
     if (posts != null) {
       setState(() {
