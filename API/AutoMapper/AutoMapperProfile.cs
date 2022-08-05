@@ -11,6 +11,8 @@ namespace Sensor.API.AutoMapper
             CreateMap<RecordDTO, SensorRecord>().ReverseMap();
             CreateMap<UserDTO, User>().ReverseMap();
             CreateMap<UserGetDTO, User>().ReverseMap();
+            CreateMap<StatusDTO, DeviceStatus>().ReverseMap();
+
         }
     }
 }

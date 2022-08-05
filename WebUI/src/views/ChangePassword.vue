@@ -41,41 +41,41 @@
 
 
 <script>
-import axios from 'axios'
-export default{
-    props:{ username:String },
-    data(){
-        return {
-            oldPasswordText: "",
-            newPasswordText: "",
-            confirmNewPasswordText:""
-        }
-    },
-    methods: {
-      changePassword(){
-        //todo
-        if(this.newPasswordText!=this.confirmNewPasswordText){
-            this.$emit('changePasswordResponse',{message:"Failed"});
-            return ;
-        }
-        console.log(this.username);
-        axios.put("https://apimqtt.innovaarge.site/api/Users/changePassword/"+this.newPasswordText+"/"+this.oldPasswordText+"/"+this.username)
+    import axios from 'axios'
+
+    export default{
+        props:{ username:String },
+        data(){
+            return {
+                oldPasswordText: "",
+                newPasswordText: "",
+                confirmNewPasswordText:""
+            }
+        },
+        methods: {
+        changePassword(){
+            //todo
+            if(this.newPasswordText!=this.confirmNewPasswordText){
+                this.$emit('changePasswordResponse',{message:"Failed"});
+                return ;
+            }
+            console.log(this.username);
+            axios.put("https://apimqtt.innovaarge.site/api/Users/changePassword/"+this.newPasswordText+"/"+this.oldPasswordText+"/"+this.username)
             .then(response=>{
                 console.log(response)
                 if(response.data){
-                this.$emit('changePasswordResponse',{message: "Your password has changed successfully!",succes:true});
+                    this.$emit('changePasswordResponse',{message: "Your password has changed successfully!",succes:true});
                 }
                 else {
-                this.$emit('changePasswordResponse',{message:"Failed!",succes:false});
-                return ;
+                    this.$emit('changePasswordResponse',{message:"Failed!",succes:false});
+                    return ;
                 }
             })
             .catch(e=>{
                 console.log(e);
                 this.$emit('changePasswordResponse',{message:"Error!",succes:false});
             })
-      }
-
+        }
     }
 }
 </script>

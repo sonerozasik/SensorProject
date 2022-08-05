@@ -1,5 +1,8 @@
-﻿namespace Sensor.API.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Sensor.API.Models
 {
+
     public class SensorRecord
     {
         public int Id { get; set; }
