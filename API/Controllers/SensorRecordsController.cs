@@ -61,13 +61,19 @@ namespace Sensor.API.Controllers
 
             var records = await _context.Records.Where(r => r.cihazId == id).OrderByDescending(y=>y.Date).Take(n).ToListAsync();
 
+            if (records.Count > 100)
+            {
+                int skip = (records.Count / 100)+1;
+                return Ok(records.Where((x, i) => i % skip == 0));
+            }
+
             return Ok(records);
         }
 
 
 
-        [HttpGet("byDate/{id}/{lastXDays}")]
-        public async Task<ActionResult<IEnumerable<SensorRecord>>> GetRecordsByDate(int id, int lastXDays)
+        [HttpGet("byDay/{id}/{lastXDays}")]
+        public async Task<ActionResult<IEnumerable<SensorRecord>>> GetRecordsByDays(int id, int lastXDays)
         {
             if (lastXDays < 0 || id <= 0)
             {
@@ -75,10 +81,123 @@ namespace Sensor.API.Controllers
             }
 
 
-            var records = _context.Records.AsEnumerable().Where(r => (DateTime.Now - r.Date).Days < lastXDays && r.cihazId == id);
+            var records = _context.Records.AsEnumerable().Where(r => (DateTime.Now - r.Date).Days < lastXDays && r.cihazId == id).OrderBy(y => y.Date).ToList();
+
+            if (records.Count > 100)
+            {
+                int skip = (records.Count / 100)+1;
+                return Ok(records.Where((x, i) => i % skip == 0));
+            }
+
             return Ok(records);
         }
 
+
+
+        [HttpGet("byHour/{id}/{lastXHours}")]
+        public async Task<ActionResult<IEnumerable<SensorRecord>>> GetRecordsByHours(int id, int lastXHours)
+        {
+            if (lastXHours < 0 || id <= 0)
+            {
+                return BadRequest();
+            }
+
+
+            var records = _context.Records.AsEnumerable().Where(r => (DateTime.Now - r.Date).TotalHours < lastXHours && r.cihazId == id).OrderBy(y=> y.Date).ToList();
+            
+            if (records.Count > 100)
+            {
+                int skip = (records.Count / 100)+1;
+                return Ok(records.Where((x, i) => i % skip == 0));
+            }
+            return Ok(records);
+        }
+
+
+
+        [HttpGet("byMinute/{id}/{lastXMinutes}")]
+        public async Task<ActionResult<IEnumerable<SensorRecord>>> GetRecordsByMinutes(int id, int lastXMinutes)
+        {
+            if (lastXMinutes < 0 || id <= 0)
+            {
+                return BadRequest();
+            }
+
+
+            var records = _context.Records.AsEnumerable().Where(r => (DateTime.Now - r.Date).TotalMinutes < lastXMinutes && r.cihazId == id).OrderBy(y => y.Date).ToList(); ;
+            
+            if (records.Count > 100)
+            {
+                int skip = (records.Count / 100)+1;
+                return Ok(records.Where((x, i) => i % skip == 0));
+            }
+            
+            return Ok(records);
+        }
+
+
+
+        [HttpGet("byMonth/{id}/{lastXMonths}")]
+        public async Task<ActionResult<IEnumerable<SensorRecord>>> GetRecordsByMonths(int id, int lastXMonths)
+        {
+            if (lastXMonths < 0 || id <= 0)
+            {
+                return BadRequest();
+            }
+
+            
+            var records = _context.Records.AsEnumerable().Where(r => (DateTime.Now.Month - r.Date.Month) < lastXMonths && r.cihazId == id).OrderBy(y => y.Date).ToList();
+
+            if (records.Count > 100)
+            {
+                int skip = (records.Count / 100) + 1;
+                return Ok(records.Where((x, i) => i % skip == 0));
+            }
+
+            return Ok(records);
+        }
+
+
+
+        [HttpPut("between")]
+        public async Task<IActionResult> GetRecordsBetween(DatesDTO datesDTO)
+        {
+
+            if (datesDTO.startDate >= datesDTO.endDate || datesDTO.cihazId<=0 )
+            {
+                return BadRequest();
+            }
+
+
+            var records = _context.Records.AsEnumerable().Where(r => r.Date>=datesDTO.startDate && r.Date<=datesDTO.endDate && r.cihazId == datesDTO.cihazId).OrderBy(y => y.Date).ToList();
+
+            if (records.Count > 100)
+            {
+                int skip = (records.Count / 100) + 1;
+                return Ok(records.Where((x, i) => i % skip == 0));
+            }
+
+            return Ok(records);
+        }
+
+
+
+        //todo doesn't work well
+        /*
+        [HttpGet("statusByMonth/{id}/{lastXMonths}")]
+        public async Task<ActionResult<IEnumerable<SensorRecord>>> GetStatusByMonths(int id, int lastXMonths)
+        {
+            if (lastXMonths < 0 || id <= 0)
+            {
+                return BadRequest();
+            }
+
+
+            var records = _context.Records.AsEnumerable().Where(r => (DateTime.Now.Month - r.Date.Month) < lastXMonths && r.cihazId == id).GroupBy(y=>y.Date.Day).ToList();
+
+            return Ok(records);
+        }
+        */
 
 
         [HttpPost]
@@ -92,6 +211,7 @@ namespace Sensor.API.Controllers
             _context.Records.Add(newRecord);
             await _context.SaveChangesAsync();
 
+
             return Ok(newRecord);
         }
 
@@ -103,7 +223,6 @@ namespace Sensor.API.Controllers
             {
                 return NotFound();
             }
-
 
             var sensorRecord = await _context.Records.FindAsync(id);
             if (sensorRecord == null)
@@ -117,6 +236,29 @@ namespace Sensor.API.Controllers
             return NoContent();
         }
 
+        public void checkStatusEvery5Minute()
+        {
+            var status = isActive(2, DateTime.Now, DateTime.Now.AddMonths(-1));
+        }
+
+        private bool isActive(int cihazId,DateTime start,DateTime end)
+        { 
+            var qq= _context.Records.Any(n => n.Date >= start && n.Date < end);
+            return qq;
+        }
+
+        public static bool IsStarted { get; set; }
+        //public void start()
+        //{
+        //    var startTimeSpan = TimeSpan.Zero;
+        //    var periodTimeSpan = TimeSpan.FromMinutes(5);
+
+        //    var timer = new System.Threading.Timer((e) =>
+        //    {
+        //        checkStatusEvery5Minute();
+        //    }, null, startTimeSpan, periodTimeSpan);
+
+        //}
 
     }
 }
