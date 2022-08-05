@@ -5,8 +5,8 @@ import DashBoardForm from '../views/DashboardForm.vue'
 import SettingsForm from '../views/SettingsForm.vue'
 import ChangePasswordForm from '../views/ChangePassword.vue'
 import ChangeUsernameForm from '../views/ChangeUsername.vue'
-
-
+import AddDeviceForm from '../views/AddDeviceForm.vue'
+import DeleteDeviceForm from '../views/DeleteDeviceForm.vue'
 const routes = [
   {
     path: '/',
@@ -37,6 +37,16 @@ const routes = [
     path: '/changeusername',
     name: 'changeusername',
     component : ChangeUsernameForm
+  },
+  {
+    path: '/adddevice',
+    name: 'addDevice',
+    component: AddDeviceForm
+  },
+  {
+    path: '/deletedevice',
+    name: 'deleteDevice',
+    component: DeleteDeviceForm
   }
 ]
 

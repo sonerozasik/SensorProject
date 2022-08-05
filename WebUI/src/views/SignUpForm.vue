@@ -9,7 +9,6 @@
                 <div class="col-lg-12 login-title">
                     REGISTER
                 </div>
-
                 <div class="col-lg-12 login-form">
                     <div class="col-lg-12 login-form">
                         <form>
@@ -29,7 +28,6 @@
                                 <label class="form-control-label">CONFIRM PASSWORD</label>
                                 <input type="password" class="form-control" i v-model="confirmPasswordText">
                             </div>
-
                             <div class="col-lg-12 loginbttm">
                                 <div class="col-lg-6 login-btm login-text">
                                     <!-- Error Message -->
@@ -44,47 +42,43 @@
                 <div class="col-lg-3 col-md-2"></div>
             </div>
         </div>
-        </div>
+    </div>
 </template>
 
 
 <script>
-import axios from 'axios'
-export default{
-    props:["signupResponse"],
-    data(){
-        return {
-            usernameText: "",
-            passwordText: "",
-            confirmPasswordText: "",
-            fullNameText: ""
-        }
-    },
-    methods: {
-        register(){
-        
-        axios.post("https://apimqtt.innovaarge.site/api/Users/register",{username: this.usernameText,password: this.passwordText,fullName:this.fullNameText})
-            .then(response=>{
-                console.log(response)
-                if(response.status=200){
-                this.$emit('signupResponse',{message: "Successful Sign Up!", succes: true});
-                }
-                else {
-                this.$emit('signupResponse',{message: "Failed!", succes: false});
-                return false;
-                }
-            })
-            .catch(e=>{
-                console.log(e);
-                this.$emit('signupResponse',{message: "Error!", succes: false});
-            })
+    import axios from 'axios'
 
-            
-            
+    export default{
+        props:["signupResponse"],
+        data(){
+            return {
+                usernameText: "",
+                passwordText: "",
+                confirmPasswordText: "",
+                fullNameText: ""
+            }
+        },
+        methods: {
+            register(){
+                axios.post("https://apimqtt.innovaarge.site/api/Users/register",{username: this.usernameText,password: this.passwordText,fullName:this.fullNameText})
+                .then(response=>{
+                    console.log(response)
+                    if(response.status=200){
+                        this.$emit('signupResponse',{message: "Successful Sign Up!", succes: true});
+                    }
+                    else {
+                        this.$emit('signupResponse',{message: "Failed!", succes: false});
+                        return false;
+                    }
+                })
+                .catch(e=>{
+                    console.log(e);
+                    this.$emit('signupResponse',{message: "Error!", succes: false});
+                })
+            }
         }
-
     }
-}
 </script>
 
 
