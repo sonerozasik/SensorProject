@@ -15,63 +15,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
             children: <Widget>[
+              Circular(context),
               Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromARGB(255, 63, 139, 158),
-                      Color.fromARGB(255, 63, 139, 158),
-                      Color.fromARGB(255, 63, 139, 158),
-                      Color.fromARGB(255, 63, 139, 158),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 40.0,
+                  vertical: 120.0,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'OpenSans',
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    _buildNameTF(),
+                    SizedBox(height: 30.0),
+                    _buildEmailTF(),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    _buildPasswordTF(),
+                    _buildSignUpBtn(),
+                    _buildAlreadyBtn(),
+                  ],
                 ),
               ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 20.0),
-                      _buildNameTF(),
-                      SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-                      _buildSignUpBtn(),
-                      _buildAlreadyBtn(),
-                    ],
-                  ),
-                ),
-              )
             ],
           ),
         ),
@@ -96,7 +78,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             controller: _fullName,
             keyboardType: TextInputType.name,
             style: const TextStyle(
-              color: Colors.white,
+              color: koyumavi,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
@@ -132,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             controller: _email,
             keyboardType: TextInputType.emailAddress,
             style: const TextStyle(
-              color: Colors.white,
+              color: koyumavi,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
@@ -168,7 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             controller: _password,
             obscureText: true,
             style: const TextStyle(
-              color: Colors.white,
+              color: koyumavi,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(

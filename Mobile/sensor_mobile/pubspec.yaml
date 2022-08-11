@@ -37,6 +37,8 @@ dependencies:
   fl_chart: ^0.55.0
   flutter_live_data: ^2.1.0
   time_chart: ^0.5.2
+  http:
+  particles_flutter: ^0.1.1
 
 dev_dependencies:
   flutter_test:

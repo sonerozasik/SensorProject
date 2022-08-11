@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:particles_flutter/particles_flutter.dart';
 import 'package:sensor_mobile/SignUpScreen.dart';
 import 'package:sensor_mobile/constants.dart';
 
@@ -18,65 +19,47 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     TextEditingController email = new TextEditingController();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
             children: <Widget>[
+              Circular(context),
               Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromARGB(255, 63, 139, 158),
-                      Color.fromARGB(255, 63, 139, 158),
-                      Color.fromARGB(255, 63, 139, 158),
-                      Color.fromARGB(255, 63, 139, 158),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 40.0,
+                  vertical: 120.0,
+                ),
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'OpenSans',
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 30.0),
+                    _buildEmailTF(),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    _buildPasswordTF(),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    _buildRememberMeCheckbox(),
+                    _buildLoginBtn(),
+                    _buildSignupBtn(),
+                  ],
                 ),
               ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
-                      _buildSignupBtn(),
-                    ],
-                  ),
-                ),
-              )
             ],
           ),
         ),
@@ -102,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
             controller: _emailForLogin,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
-              color: Colors.white,
+              color: koyumavi,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
@@ -138,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
             controller: _LoginPassword,
             obscureText: true,
             style: TextStyle(
-              color: Colors.white,
+              color: koyumavi,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
@@ -244,4 +227,31 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+}
+
+Widget Circular(context) {
+  return Container(
+    color: Color(0xFF0B5A9C),
+    child: CircularParticle(
+      key: UniqueKey(),
+      awayRadius: 80,
+      numberOfParticles: 100,
+      speedOfParticles: 0.5,
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      onTapAnimation: true,
+      particleColor: acikmavi,
+      awayAnimationDuration: Duration(milliseconds: 600),
+      maxParticleSize: 3,
+
+      isRandSize: false,
+      isRandomColor: true,
+      randColorList: [Colors.white],
+      awayAnimationCurve: Curves.easeInOutBack,
+      enableHover: true,
+      hoverColor: Color.fromRGBO(230, 31, 44, 1),
+      hoverRadius: 90,
+      connectDots: true, //not recommended
+    ),
+  );
 }
