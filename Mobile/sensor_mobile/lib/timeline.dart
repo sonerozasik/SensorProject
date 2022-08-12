@@ -37,7 +37,7 @@ class TimeLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sizedBox = const SizedBox(height: 16);
+    const sizedBox = SizedBox(height: 16);
 
     return SingleChildScrollView(
       child: Padding(

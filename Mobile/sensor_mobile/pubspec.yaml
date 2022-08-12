@@ -39,6 +39,9 @@ dependencies:
   time_chart: ^0.5.2
   http:
   particles_flutter: ^0.1.1
+  searchfield: ^0.6.8
+  dropdown_search: ^3.0.1
+
 
 dev_dependencies:
   flutter_test:

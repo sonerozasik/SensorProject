@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AlertList extends StatelessWidget {
@@ -8,7 +7,7 @@ class AlertList extends StatelessWidget {
       margin: const EdgeInsets.all(4.0),
       padding: const EdgeInsets.all(2.0),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 115, 148, 170),
+        color: const Color.fromARGB(255, 115, 148, 170),
         borderRadius: BorderRadius.circular(10.0),
       ),
       height: 200,
@@ -18,22 +17,22 @@ class AlertList extends StatelessWidget {
             flex: 1,
             child: Row(
               children: <Widget>[
-                _buildStatCard('Alerts', Color.fromARGB(255, 115, 148, 170)),
+                _buildStatCard('Alerts', const Color.fromARGB(255, 115, 148, 170)),
               ],
             ),
           ),
           Flexible(
             flex: 3,
             child: ListView(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                          width: 2, color: Color.fromARGB(255, 88, 114, 132)),
-                      color: Color.fromARGB(255, 115, 148, 170)),
+                          width: 2, color: const Color.fromARGB(255, 88, 114, 132)),
+                      color: const Color.fromARGB(255, 115, 148, 170)),
                   height: 40,
                   child: Center(
                       child: Row(
@@ -57,12 +56,12 @@ class AlertList extends StatelessWidget {
                   )),
                 ),
                 Container(
-                  margin: EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                          width: 2, color: Color.fromARGB(255, 88, 114, 132)),
-                      color: Color.fromARGB(255, 115, 148, 170)),
+                          width: 2, color: const Color.fromARGB(255, 88, 114, 132)),
+                      color: const Color.fromARGB(255, 115, 148, 170)),
                   height: 40,
                   child: Center(
                       child: Row(
@@ -86,12 +85,12 @@ class AlertList extends StatelessWidget {
                   )),
                 ),
                 Container(
-                  margin: EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                          width: 2, color: Color.fromARGB(255, 88, 114, 132)),
-                      color: Color.fromARGB(255, 115, 148, 170)),
+                          width: 2, color: const Color.fromARGB(255, 88, 114, 132)),
+                      color: const Color.fromARGB(255, 115, 148, 170)),
                   height: 40,
                   child: Center(
                       child: Row(

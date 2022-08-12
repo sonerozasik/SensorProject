@@ -10,7 +10,7 @@ final kHintTextStyle = TextStyle(
   fontFamily: 'OpenSans',
 );
 
-final kLabelStyle = TextStyle(
+const kLabelStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',

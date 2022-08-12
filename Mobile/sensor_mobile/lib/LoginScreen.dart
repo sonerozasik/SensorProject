@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _LoginPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    TextEditingController email = new TextEditingController();
+    TextEditingController email = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: <Widget>[
               Circular(context),
               Container(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 40.0,
                   vertical: 120.0,
                 ),
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Sign In',
                       style: TextStyle(
                         color: Colors.white,
@@ -45,13 +45,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 30.0),
+                    const SizedBox(height: 30.0),
                     _buildEmailTF(),
-                    SizedBox(
+                    const SizedBox(
                       height: 30.0,
                     ),
                     _buildPasswordTF(),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     _buildRememberMeCheckbox(),
@@ -71,11 +71,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        const Text(
           'Email',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
@@ -84,14 +84,14 @@ class _LoginScreenState extends State<LoginScreen> {
             onChanged: (value) {},
             controller: _emailForLogin,
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
+            style: const TextStyle(
               color: koyumavi,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.email,
                 color: Colors.white,
               ),
@@ -108,11 +108,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        const Text(
           'Password',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
@@ -120,14 +120,14 @@ class _LoginScreenState extends State<LoginScreen> {
           child: TextField(
             controller: _LoginPassword,
             obscureText: true,
-            style: TextStyle(
+            style: const TextStyle(
               color: koyumavi,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.lock,
                 color: Colors.white,
               ),
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildRememberMeCheckbox() {
-    return Container(
+    return SizedBox(
       height: 20.0,
       child: Row(
         children: <Widget>[
@@ -158,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
               },
             ),
           ),
-          Text(
+          const Text(
             'Remember me',
             style: kLabelStyle,
           ),
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildLoginBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -177,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => homeScreen()));
         },
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
@@ -231,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
 Widget Circular(context) {
   return Container(
-    color: Color(0xFF0B5A9C),
+    color: const Color(0xFF0B5A9C),
     child: CircularParticle(
       key: UniqueKey(),
       awayRadius: 80,
@@ -241,15 +241,15 @@ Widget Circular(context) {
       width: MediaQuery.of(context).size.width,
       onTapAnimation: true,
       particleColor: acikmavi,
-      awayAnimationDuration: Duration(milliseconds: 600),
+      awayAnimationDuration: const Duration(milliseconds: 600),
       maxParticleSize: 3,
 
       isRandSize: false,
       isRandomColor: true,
-      randColorList: [Colors.white],
+      randColorList: const [Colors.white],
       awayAnimationCurve: Curves.easeInOutBack,
       enableHover: true,
-      hoverColor: Color.fromRGBO(230, 31, 44, 1),
+      hoverColor: const Color.fromRGBO(230, 31, 44, 1),
       hoverRadius: 90,
       connectDots: true, //not recommended
     ),

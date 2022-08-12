@@ -15,7 +15,7 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 void main() {
-  HttpOverrides.global = new MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MaterialApp(
     title: "Sensor App",
     debugShowCheckedModeBanner: false,

@@ -25,7 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Circular(context),
               Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 40.0,
                   vertical: 120.0,
                 ),
@@ -41,9 +41,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     _buildNameTF(),
-                    SizedBox(height: 30.0),
+                    const SizedBox(height: 30.0),
                     _buildEmailTF(),
                     const SizedBox(
                       height: 30.0,
@@ -65,11 +65,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        const Text(
           'Full Name',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
@@ -83,8 +83,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.person,
                 color: Colors.white,
               ),
@@ -101,11 +101,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        const Text(
           'Email',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
@@ -137,7 +137,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        const Text(
           'Password',
           style: kLabelStyle,
         ),
@@ -155,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
+              contentPadding: const EdgeInsets.only(top: 14.0),
               prefixIcon: const Icon(
                 Icons.lock,
                 color: Colors.white,
@@ -171,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildSignUpBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -181,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               builder: (context) => AlertDialog(
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    backgroundColor: Color.fromARGB(255, 46, 100, 114),
+                    backgroundColor: const Color.fromARGB(255, 46, 100, 114),
                     title: const Text(
                       'Succesfully registered ! ',
                       textAlign: TextAlign.center,
@@ -200,7 +200,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         BorderRadius.all(Radius.circular(15))),
                                 alignment: Alignment.center,
                                 backgroundColor:
-                                    Color.fromARGB(255, 64, 138, 156),
+                                    const Color.fromARGB(255, 64, 138, 156),
                                 padding: const EdgeInsets.all(16.0),
                                 primary: Colors.white,
                                 textStyle: const TextStyle(fontSize: 20),
@@ -211,7 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     MaterialPageRoute(
                                         builder: (context) => LoginScreen())),
                               },
-                              child: Text('OK',
+                              child: const Text('OK',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Colors.white,
@@ -221,12 +221,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ));
         },
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
         color: Colors.white,
-        child: Text(
+        child: const Text(
           'SIGN UP',
           style: TextStyle(
             color: Color(0xFF527DAA),
