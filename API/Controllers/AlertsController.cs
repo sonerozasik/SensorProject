@@ -36,22 +36,48 @@ namespace Sensor.API.Controllers
             return Ok(records);
         }
 
+
+
         [HttpGet("getLastXAlert/{Count}")]
         public async Task<IActionResult> getLastXAlert(int Count)
         {
             if (_context.Alerts.Count() >= Count)
             {
-                var records = await _context.Alerts.OrderByDescending(x => x.Date).Take(Count).ToListAsync();
+                var records = await _context.Alerts.OrderByDescending(x => x.date).Take(Count).ToListAsync();
                 return Ok(records);
             }
             else
             {
-                var records = await _context.Alerts.OrderByDescending(x => x.Date).ToListAsync();
+                var records = await _context.Alerts.OrderByDescending(x => x.date).ToListAsync();
                 return Ok(records);
             }
         }
 
 
+        [HttpGet("getLastXAlertById/{Count}/{deviceId}")]
+        public async Task<IActionResult> getLastXAlertById(int Count,int deviceId)
+        {
+            if (_context.Alerts.Where(x => x.deviceId == deviceId).Count() >= Count)
+            {
+                var records = await _context.Alerts.Where(x=>x.deviceId==deviceId).OrderByDescending(x => x.date).Take(Count).ToListAsync();
+                return Ok(records);
+            }
+            else
+            {
+                var records = await _context.Alerts.Where(x => x.deviceId == deviceId).OrderByDescending(x => x.date).ToListAsync();
+                return Ok(records);
+            }
+        }
+
+
+        [HttpGet("getAllAlertsById/{deviceId}")]
+        public async Task<IActionResult> getAllAlertsById(int deviceId)
+        {
+
+                var records = await _context.Alerts.Where(x => x.deviceId == deviceId).OrderByDescending(x => x.date).ToListAsync();
+                return Ok(records);   
+            
+        }
     }
 
 

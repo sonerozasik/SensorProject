@@ -21,23 +21,23 @@ namespace Sensor.API.Migrations
 
             modelBuilder.Entity("Sensor.API.Models.SensorRecord", b =>
                 {
-                    b.Property<int>("Id")
+                    /*b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int");*/
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("cihazId")
-                        .HasColumnType("int");
+                    b.Property<Int16>("cihazId")
+                        .HasColumnType("smallint");
 
-                    b.Property<int>("pil")
-                        .HasColumnType("int");
+                    b.Property<Byte>("pil")
+                        .HasColumnType("tinyint");
 
-                    b.Property<float>("sicaklik")
-                        .HasColumnType("float");
+                    b.Property<Byte>("sicaklik")
+                        .HasColumnType("tinyint");
 
-                    b.HasKey("Id");
+                    b.HasNoKey();
 
                     b.ToTable("Records");
                 });
@@ -50,7 +50,7 @@ namespace Sensor.API.Migrations
 
                     b.Property<string>("fullName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("password")
                         .IsRequired()

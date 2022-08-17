@@ -7,16 +7,23 @@ namespace Sensor.API.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            Database.Migrate();
+            //Database.EnsureCreated();
         }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SensorRecord>()
+            /*modelBuilder.Entity<SensorRecord>()
+                .HasNoKey()
                 .HasIndex(b => b.cihazId)
-                //.IsUnique()
                 .HasFilter(null);
+
+            modelBuilder.Entity<Alert>()
+                .HasNoKey();
+
+            modelBuilder.Entity<DeviceStatus>()
+                .HasNoKey();*/
         }
 
         public DbSet<SensorRecord> Records { get; set; }

@@ -117,9 +117,20 @@ namespace Sensor.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> CreateUser(UserDTO userDTO)
         {
+            if (userDTO.username.Length > 24)
+            {
+                return BadRequest("Username is too long!");
+            }
+
+            if (userDTO.password.Length > 36)
+            {
+                return BadRequest("Password is too long!");
+
+            }
+
             if (UserExists(userDTO))
             {
-                return BadRequest();
+                return BadRequest("User is already exists!");
             }
 
             userDTO.password = HashPassword(userDTO.password);

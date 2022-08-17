@@ -46,13 +46,14 @@ namespace Sensor.API.Modules
 
                 if (!statusDTO.isActive)
                 {
-                    var lastAlert = _context.DeviceStatuses.Where(r => r.cihazId == devices[i]).OrderBy(r=>r.Date).LastOrDefault();
+                    var lastAlert = _context.DeviceStatuses.Where(r => r.deviceId == devices[i]).OrderBy(r=>r.Date).LastOrDefault();
                     if (lastAlert!=null && lastAlert.isActive)
                     {
                         Alert newAlert = new Alert();
-                        newAlert.Message = "Can't recieve data for 5 minutes from device " + devices[i] + " !";
-                        newAlert.Type = "Error!";
-                        newAlert.Date = DateTime.Now;
+                        newAlert.deviceId = (Int16)devices[i];
+                        newAlert.message = "Can't recieve data for 5 minutes from device " + devices[i] + " !";
+                        newAlert.type = "Error!";
+                        newAlert.date = DateTime.Now;
 
                         _context.Alerts.AddAsync(newAlert);
                     }
@@ -60,13 +61,14 @@ namespace Sensor.API.Modules
                 }
                 else
                 {
-                    var lastAlert = _context.DeviceStatuses.Where(r => r.cihazId == devices[i]).OrderBy(r => r.Date).LastOrDefault();
+                    var lastAlert = _context.DeviceStatuses.Where(r => r.deviceId == devices[i]).OrderBy(r => r.Date).LastOrDefault();
                     if (lastAlert != null && !lastAlert.isActive)
                     {
                         Alert newAlert = new Alert();
-                        newAlert.Message = "Succesfully recieving data from device "+ devices[i]+ " !";
-                        newAlert.Type = "Error!";
-                        newAlert.Date = DateTime.Now;
+                        newAlert.deviceId = (Int16)devices[i];
+                        newAlert.message = "Succesfully recieving data from device "+ devices[i]+ " !";
+                        newAlert.type = "Error!";
+                        newAlert.date = DateTime.Now;
 
                         _context.Alerts.AddAsync(newAlert);
                     }

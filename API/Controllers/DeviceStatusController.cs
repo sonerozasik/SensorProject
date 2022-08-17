@@ -41,7 +41,7 @@ namespace Sensor.API.Controllers
             }
 
 
-            var records = _context.DeviceStatuses.AsEnumerable().Where(r => (DateTime.Now - r.Date).TotalMinutes < lastXMinutes && r.cihazId == id).OrderBy(y => y.Date).ToList(); ;
+            var records = _context.DeviceStatuses.AsEnumerable().Where(r => (DateTime.Now - r.Date).TotalMinutes < lastXMinutes && r.deviceId == id).OrderBy(y => y.Date).ToList(); ;
 
             if (records.Count > 100)
             {
@@ -63,7 +63,7 @@ namespace Sensor.API.Controllers
             }
 
 
-            var records = _context.DeviceStatuses.AsEnumerable().Where(r => (DateTime.Now - r.Date).TotalHours < lastXHours && r.cihazId == id).OrderBy(y => y.Date).ToList();
+            var records = _context.DeviceStatuses.AsEnumerable().Where(r => (DateTime.Now - r.Date).TotalHours < lastXHours && r.deviceId == id).OrderBy(y => y.Date).ToList();
 
             if (records.Count > 100)
             {
@@ -84,7 +84,7 @@ namespace Sensor.API.Controllers
             }
 
 
-            var records = _context.DeviceStatuses.AsEnumerable().Where(r => (DateTime.Now - r.Date).Days < lastXDays && r.cihazId == id ).OrderBy(y => y.Date).ToList();
+            var records = _context.DeviceStatuses.AsEnumerable().Where(r => (DateTime.Now - r.Date).Days < lastXDays && r.deviceId == id ).OrderBy(y => y.Date).ToList();
 
             if (records.Count > 100)
             {
@@ -106,7 +106,7 @@ namespace Sensor.API.Controllers
             }
 
 
-            var records = _context.DeviceStatuses.AsEnumerable().Where(r => (DateTime.Now.Month - r.Date.Month) < lastXMonths && r.cihazId == id).OrderBy(y => y.Date).ToList();
+            var records = _context.DeviceStatuses.AsEnumerable().Where(r => (DateTime.Now.Month - r.Date.Month) < lastXMonths && r.deviceId == id).OrderBy(y => y.Date).ToList();
 
             if (records.Count > 100)
             {
@@ -129,7 +129,7 @@ namespace Sensor.API.Controllers
             }
 
 
-            var records = _context.DeviceStatuses.AsEnumerable().Where(r => r.Date >= datesDTO.startDate && r.Date <= datesDTO.endDate && r.cihazId == datesDTO.cihazId).OrderBy(y => y.Date).ToList();
+            var records = _context.DeviceStatuses.AsEnumerable().Where(r => r.Date >= datesDTO.startDate && r.Date <= datesDTO.endDate && r.deviceId == datesDTO.cihazId).OrderBy(y => y.Date).ToList();
 
             if (records.Count > 100)
             {

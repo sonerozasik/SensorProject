@@ -45,12 +45,13 @@ namespace Sensor.API.Controllers
             var status = new DeviceStatus();
             status.isActive = true;
             status.Date = DateTime.Now;
-            status.cihazId=deviceDTO.cihazId;
+            status.deviceId =deviceDTO.cihazId;
             //todo -
 
             await _context.DeviceStatuses.AddAsync(status);
 
             await _context.Devices.AddAsync(record);
+
             await _context.SaveChangesAsync();
 
             return Ok();

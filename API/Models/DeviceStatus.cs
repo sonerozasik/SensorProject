@@ -1,13 +1,14 @@
-﻿namespace Sensor.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Sensor.API.Models
 {
     public class DeviceStatus
     {
-        public int Id { get; set; }
-
-        public int cihazId { get; set; }
+        public int deviceId { get; set; }
         
         public bool isActive { get; set; }
 
+        [Key]
         public DateTime Date { get; set; }
     }
 }
