@@ -9,15 +9,11 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       leading: IconButton(
         icon: const Icon(Icons.menu),
         iconSize: 28.0,
-        onPressed: () {},
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
       ),
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.notifications_none),
-          iconSize: 28.0,
-          onPressed: () {},
-        ),
-      ],
+      actions: <Widget>[],
     );
   }
 

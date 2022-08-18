@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sensor_mobile">
+    package="com.example.sensor2">
+   <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="sensor_mobile"
+        android:label="sensor2"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

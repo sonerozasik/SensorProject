@@ -41,6 +41,7 @@ dependencies:
   particles_flutter: ^0.1.1
   searchfield: ^0.6.8
   dropdown_search: ^3.0.1
+  syncfusion_flutter_charts: ^20.2.44
 
 
 dev_dependencies:

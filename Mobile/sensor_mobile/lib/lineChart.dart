@@ -40,6 +40,25 @@ class LineChartViewState extends State<LineChartView> {
   getData() async {
     posts = await RemoteService().getPosts();
     if (posts != null) {
+      len = posts!.length;
+      spots!.clear();
+      spots2!.clear();
+      for (int i = 0; i < len; i++) {
+        spots!.add(FlSpot(i.toDouble(), posts![i].pil.toDouble()));
+        spots2!.add(FlSpot(i.toDouble(), posts![i].sicaklik.toDouble()));
+        if (posts![i].pil.toDouble() > maxvalue) {
+          maxvalue = posts![i].pil.toDouble();
+        }
+        if (posts![i].pil.toDouble() < minvalue) {
+          minvalue = posts![i].pil.toDouble();
+        }
+        if (posts![i].sicaklik.toDouble() > maxvalue) {
+          maxvalue = posts![i].pil.toDouble();
+        }
+        if (posts![i].sicaklik.toDouble() < minvalue) {
+          minvalue = posts![i].pil.toDouble();
+        }
+      }
       setState(() {
         len = posts!.length;
         spots!.clear();
@@ -280,77 +299,7 @@ class LineChartViewState extends State<LineChartView> {
                 ),
               ],
             ),
-            SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Container(
-                  padding: const EdgeInsets.only(
-                      bottom: 8, top: 50, right: 15, left: 15),
-                  height: 380,
-                  width: len * 60,
-                  child: LineChart(
-                    LineChartData(
-                      maxX: len + 0.5,
-                      minX: -0.5,
-                      maxY: maxvalue + 5,
-                      lineTouchData: LineTouchData(enabled: true),
-                      lineBarsData: [
-                        LineChartBarData(
-                          spots: spo,
-                          isCurved: true,
-                          barWidth: 2,
-                          color: const Color.fromARGB(255, 113, 158, 195),
-                          dotData: FlDotData(
-                            show: true,
-                          ),
-                        ),
-                        LineChartBarData(
-                          spots: spo2,
-                          isCurved: true,
-                          barWidth: 2,
-                          color: const Color.fromARGB(255, 253, 135, 0),
-                          dotData: FlDotData(
-                            show: true,
-                          ),
-                        ),
-                      ],
-                      minY: 0,
-                      titlesData: FlTitlesData(
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            reservedSize: 27,
-                            showTitles: true,
-                            interval: 1,
-                            getTitlesWidget: bottomTitleWidgets,
-                          ),
-                        ),
-                        leftTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: leftTitleWidgets,
-                            interval: 5,
-                            reservedSize: 38,
-                          ),
-                        ),
-                        topTitles: AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        rightTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            getTitlesWidget: rightTitleWidgets,
-                            interval: 5,
-                            reservedSize: 38,
-                          ),
-                        ),
-                      ),
-                      gridData: FlGridData(
-                        show: true,
-                        drawVerticalLine: false,
-                        horizontalInterval: 5,
-                      ),
-                    ),
-                  ),
-                )),
+            
           ],
         ));
   }

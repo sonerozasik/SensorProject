@@ -12,21 +12,18 @@ String postToJson(List<Post> data) =>
 
 class Post {
   Post({
-    required this.id,
     required this.cihazId,
     required this.sicaklik,
     required this.pil,
     required this.date,
   });
 
-  int id;
   int cihazId;
   int sicaklik;
   int pil;
   DateTime date;
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
-        id: json["id"],
         cihazId: json["cihazId"],
         sicaklik: json["sicaklik"],
         pil: json["pil"],
@@ -34,7 +31,6 @@ class Post {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "cihazId": cihazId,
         "sicaklik": sicaklik,
         "pil": pil,
