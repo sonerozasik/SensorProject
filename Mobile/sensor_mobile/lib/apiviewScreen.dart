@@ -25,10 +25,11 @@ class _ApiScreenState extends State<ApiScreen> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("APi Veri"),
+          title: const Text("APi Veri"),
         ),
         body: Visibility(
           visible: isLoaded,

@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 class RemoteService {
   static String bytime = "byDay";
   static String deviceid = "2";
-  static String lastxtime = "1";
+  static String lastxtime = "3";
+
   Future<List<Post>?> getPosts() async {
     var client = http.Client();
     var uri = Uri.parse('https://apimqtt.innovaarge.site/api/SensorRecords/' +
@@ -20,5 +21,6 @@ class RemoteService {
       var json = response.body;
       return postFromJson(json);
     }
+    return null;
   }
 }

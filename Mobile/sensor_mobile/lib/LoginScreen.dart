@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:particles_flutter/particles_flutter.dart';
 import 'package:sensor_mobile/SignUpScreen.dart';
-import 'package:sensor_mobile/apiviewScreen.dart';
 import 'package:sensor_mobile/constants.dart';
 
-import 'home_dashboard.dart';
+import 'apiviewScreen.dart';
+import 'homeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,67 +18,49 @@ class _LoginScreenState extends State<LoginScreen> {
   final _LoginPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    TextEditingController email = new TextEditingController();
+    TextEditingController email = TextEditingController();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
             children: <Widget>[
+              Circular(context),
               Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromARGB(255, 63, 139, 158),
-                      Color.fromARGB(255, 63, 139, 158),
-                      Color.fromARGB(255, 63, 139, 158),
-                      Color.fromARGB(255, 63, 139, 158),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40.0,
+                  vertical: 120.0,
+                ),
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'OpenSans',
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 30.0),
+                    _buildEmailTF(),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    _buildPasswordTF(),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    _buildRememberMeCheckbox(),
+                    _buildLoginBtn(),
+                    _buildSignupBtn(),
+                  ],
                 ),
               ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
-                      _buildSignupBtn(),
-                    ],
-                  ),
-                ),
-              )
             ],
           ),
         ),
@@ -89,11 +72,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        const Text(
           'Email',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
@@ -102,14 +85,14 @@ class _LoginScreenState extends State<LoginScreen> {
             onChanged: (value) {},
             controller: _emailForLogin,
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
-              color: Colors.white,
+            style: const TextStyle(
+              color: koyumavi,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.email,
                 color: Colors.white,
               ),
@@ -126,11 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        const Text(
           'Password',
           style: kLabelStyle,
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
@@ -138,14 +121,14 @@ class _LoginScreenState extends State<LoginScreen> {
           child: TextField(
             controller: _LoginPassword,
             obscureText: true,
-            style: TextStyle(
-              color: Colors.white,
+            style: const TextStyle(
+              color: koyumavi,
               fontFamily: 'OpenSans',
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.lock,
                 color: Colors.white,
               ),
@@ -159,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildRememberMeCheckbox() {
-    return Container(
+    return SizedBox(
       height: 20.0,
       child: Row(
         children: <Widget>[
@@ -176,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
               },
             ),
           ),
-          Text(
+          const Text(
             'Remember me',
             style: kLabelStyle,
           ),
@@ -187,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildLoginBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
@@ -195,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => homeScreen()));
         },
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
@@ -245,4 +228,31 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+}
+
+Widget Circular(context) {
+  return Container(
+    color: const Color(0xFF0B5A9C),
+    child: CircularParticle(
+      key: UniqueKey(),
+      awayRadius: 80,
+      numberOfParticles: 100,
+      speedOfParticles: 0.5,
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      onTapAnimation: true,
+      particleColor: acikmavi,
+      awayAnimationDuration: const Duration(milliseconds: 600),
+      maxParticleSize: 3,
+
+      isRandSize: false,
+      isRandomColor: true,
+      randColorList: const [Colors.white],
+      awayAnimationCurve: Curves.easeInOutBack,
+      enableHover: true,
+      hoverColor: const Color.fromRGBO(230, 31, 44, 1),
+      hoverRadius: 90,
+      connectDots: true, //not recommended
+    ),
+  );
 }
