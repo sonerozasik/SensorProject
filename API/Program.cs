@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Sensor.API.AutoMapper;
 using Sensor.API.Data;
+using Sensor.API.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("FileZilla");
+var connectionString = builder.Configuration.GetConnectionString("Url");
 
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -19,10 +19,13 @@ builder.Services.AddCors(c =>
     c.AddPolicy("All", p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 });
 
+
 builder.Services.AddDbContext<AppDbContext>(ops =>
 {
     ops.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-});
+}, ServiceLifetime.Singleton);
+
+builder.Services.AddHostedService<ImplementBackgroundService>();
 
 
 var app = builder.Build();

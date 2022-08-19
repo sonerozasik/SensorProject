@@ -1,25 +1,129 @@
+import 'dart:async';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:sensor_mobile/constants.dart';
+import 'package:sensor_mobile/dashboard_grid.dart';
+import 'package:sensor_mobile/models/post.dart';
+import 'package:sensor_mobile/services/remote_service.dart';
 
-class LineChartView extends StatelessWidget {
+class LineChartView extends StatefulWidget {
   const LineChartView({Key? key}) : super(key: key);
+
+  @override
+  _LineChartViewState createState() => _LineChartViewState();
+}
+
+class _LineChartViewState extends State<LineChartView> {
+  final time_frame = TextEditingController(text: "1");
+  bool _hasBeenPressed1 = false;
+  bool _hasBeenPressed2 = true;
+  bool _hasBeenPressed3 = false;
+  List<FlSpot>? spots = [FlSpot(0.0, 0.0)];
+  List<FlSpot>? spots2 = [FlSpot(0.0, 0.0)];
+  List<Post>? posts;
+  Timer? timer;
+  var len = 0;
+  var lastheat = 0;
+  var lastbattery = 0;
+
+  double minvalue = 3000;
+  double maxvalue = -5;
+
+  void initState() {
+    super.initState();
+    timer =
+        Timer.periodic(const Duration(seconds: 30), (Timer t) => {getData()});
+
+    getData();
+  }
+
+  getData() async {
+    posts = await RemoteService().getPosts();
+    if (posts != null) {
+      setState(() {
+        len = posts!.length;
+        spots!.clear();
+        spots2!.clear();
+        for (int i = 0; i < len; i++) {
+          spots!.add(FlSpot(i.toDouble(), posts![i].pil.toDouble()));
+          spots2!.add(FlSpot(i.toDouble(), posts![i].sicaklik.toDouble()));
+          if (posts![i].pil.toDouble() > maxvalue) {
+            maxvalue = posts![i].pil.toDouble();
+          }
+          if (posts![i].pil.toDouble() < minvalue) {
+            minvalue = posts![i].pil.toDouble();
+          }
+          if (posts![i].sicaklik.toDouble() > maxvalue) {
+            maxvalue = posts![i].pil.toDouble();
+          }
+          if (posts![i].sicaklik.toDouble() < minvalue) {
+            minvalue = posts![i].pil.toDouble();
+          }
+        }
+      });
+    }
+  }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontSize: 10,
-      color: Colors.purple,
+      color: Color.fromARGB(255, 31, 52, 97),
       fontWeight: FontWeight.bold,
     );
-
+    if (value < 0 || value > len - 1) return Container();
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 5,
-      child: Text(value.toString(), style: style),
+      space: 4,
+      child: (posts != null)
+          ? Text(
+              posts![(value).toInt()].date.hour.toString() +
+                  ":" +
+                  posts![(value).toInt()].date.minute.toString() +
+                  ":" +
+                  posts![(value).toInt()].date.second.toString() +
+                  "\n" +
+                  posts![(value).toInt()].date.day.toString() +
+                  "." +
+                  posts![(value).toInt()].date.month.toString() +
+                  "." +
+                  posts![(value).toInt()].date.year.toString(),
+              textAlign: TextAlign.center,
+              style: style,
+            )
+          : const SizedBox(
+              child: CircularProgressIndicator(
+                strokeWidth: 0.5,
+              ),
+              height: 10.0,
+              width: 10.0,
+            ),
     );
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(fontSize: 10);
+    const style = TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.bold,
+      color: Color.fromARGB(255, 31, 52, 97),
+    );
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      child: Text(
+        '${value}',
+        style: style,
+      ),
+    );
+  }
+
+  Widget rightTitleWidgets(double value, TitleMeta meta) {
+    const style = TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.bold,
+      color: Color.fromARGB(255, 31, 52, 97),
+    );
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
@@ -32,88 +136,227 @@ class LineChartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<FlSpot>? spo = spots;
+    List<FlSpot>? spo2 = spots2;
+
+    print(spo);
     return Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
         color: Color.fromARGB(255, 231, 239, 245),
-        child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-              padding: EdgeInsets.only(bottom: 0, top: 15, right: 15, left: 15),
-              height: 200,
-              width: MediaQuery.of(context).size.height * 1.5,
-              child: LineChart(
-                LineChartData(
-                  maxY: 10,
-                  lineTouchData: LineTouchData(enabled: false),
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: const [
-                        FlSpot(0, 0),
-                        FlSpot(1, 3),
-                        FlSpot(2, 4),
-                        FlSpot(3, 5),
-                        FlSpot(4, 8),
-                        FlSpot(5, 3),
-                        FlSpot(6, 5),
-                        FlSpot(7, 8),
-                        FlSpot(8, 4),
-                        FlSpot(9, 7),
-                        FlSpot(10, 7),
-                        FlSpot(11, 8),
-                        FlSpot(12, 0),
-                        FlSpot(13, 3),
-                        FlSpot(14, 4),
-                        FlSpot(15, 5),
-                        FlSpot(16, 8),
-                        FlSpot(17, 3),
-                        FlSpot(18, 5),
-                        FlSpot(19, 8),
-                        FlSpot(20, 4),
-                        FlSpot(21, 7),
-                        FlSpot(22, 7),
-                        FlSpot(23, 8),
-                      ],
-                      isCurved: true,
-                      barWidth: 2,
-                      color: Colors.black,
-                      dotData: FlDotData(
-                        show: false,
-                      ),
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(201, 103, 149, 182),
+                borderRadius: BorderRadius.all(Radius.circular(
+                        20.0) //                 <--- border radius here
                     ),
-                  ],
-                  minY: 0,
-                  titlesData: FlTitlesData(
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        interval: 1,
-                        getTitlesWidget: bottomTitleWidgets,
-                      ),
-                    ),
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: leftTitleWidgets,
-                        interval: 1,
-                        reservedSize: 30,
-                      ),
-                    ),
-                    topTitles: AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    rightTitles: AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                  ),
-                  gridData: FlGridData(
-                    show: true,
-                    drawVerticalLine: false,
-                    horizontalInterval: 1,
-                  ),
-                ),
               ),
-            )));
+              width: 200,
+              child: Row(
+                children: [
+                  SizedBox(width: 20),
+                  Text(
+                    "Time Frame: ",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 0,
+                  ),
+                  Container(
+                    width: 50,
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(0, 214, 221, 225),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    height: 40.0,
+                    child: TextField(
+                      onChanged: (value) {
+                        RemoteService.bytime = "byDay";
+                        RemoteService.lastxtime = time_frame.text;
+
+                        getData();
+                      },
+                      controller: time_frame,
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(bottom: 5.0),
+                        border: InputBorder.none,
+                        hintStyle: kHintTextStyle,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(45.0)),
+                    child: new Text(
+                      'Hour',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    textColor: Colors.white,
+                    color: _hasBeenPressed1 ? koyumavi : acikmavi,
+                    onPressed: () => {
+                          setState(() {
+                            _hasBeenPressed1 = true;
+                            _hasBeenPressed2 = false;
+                            _hasBeenPressed3 = false;
+                            RemoteService.bytime = "byHour";
+                            RemoteService.lastxtime = time_frame.text;
+
+                            getData();
+                          })
+                        }),
+                SizedBox(
+                  width: 12,
+                ),
+                RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(45.0)),
+                    child: new Text(
+                      'Day',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    textColor: Colors.white,
+                    color: _hasBeenPressed2 ? koyumavi : acikmavi,
+                    onPressed: () => {
+                          setState(() {
+                            _hasBeenPressed1 = false;
+                            _hasBeenPressed2 = true;
+                            _hasBeenPressed3 = false;
+                            RemoteService.bytime = "byDay";
+                            RemoteService.lastxtime = time_frame.text;
+
+                            getData();
+                          })
+                        }),
+                SizedBox(
+                  width: 12,
+                ),
+                RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(45.0)),
+                    child: new Text(
+                      'Month',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    textColor: Colors.white,
+                    color: _hasBeenPressed3 ? koyumavi : acikmavi,
+                    onPressed: () => {
+                          setState(() {
+                            _hasBeenPressed1 = false;
+                            _hasBeenPressed2 = false;
+                            _hasBeenPressed3 = true;
+                            RemoteService.bytime = "byMonth";
+                            RemoteService.lastxtime = time_frame.text;
+
+                            getData();
+                          })
+                        }),
+                SizedBox(
+                  width: 5,
+                ),
+              ],
+            ),
+            SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Container(
+                  padding:
+                      EdgeInsets.only(bottom: 8, top: 15, right: 15, left: 15),
+                  height: 350,
+                  width: len * 60,
+                  child: LineChart(
+                    LineChartData(
+                      maxX: len + 0.5,
+                      minX: -0.5,
+                      maxY: maxvalue + 5,
+                      lineTouchData: LineTouchData(enabled: true),
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: spo,
+                          isCurved: true,
+                          barWidth: 2,
+                          color: Color.fromARGB(255, 113, 158, 195),
+                          dotData: FlDotData(
+                            show: true,
+                          ),
+                        ),
+                        LineChartBarData(
+                          spots: spo2,
+                          isCurved: true,
+                          barWidth: 2,
+                          color: Color.fromARGB(255, 253, 135, 0),
+                          dotData: FlDotData(
+                            show: true,
+                          ),
+                        ),
+                      ],
+                      minY: 0,
+                      titlesData: FlTitlesData(
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            reservedSize: 27,
+                            showTitles: true,
+                            interval: 1,
+                            getTitlesWidget: bottomTitleWidgets,
+                          ),
+                        ),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: leftTitleWidgets,
+                            interval: 5,
+                            reservedSize: 38,
+                          ),
+                        ),
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: rightTitleWidgets,
+                            interval: 5,
+                            reservedSize: 38,
+                          ),
+                        ),
+                      ),
+                      gridData: FlGridData(
+                        show: true,
+                        drawVerticalLine: false,
+                        horizontalInterval: 5,
+                      ),
+                    ),
+                  ),
+                )),
+          ],
+        ));
   }
 }

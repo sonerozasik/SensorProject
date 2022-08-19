@@ -37,7 +37,13 @@ dependencies:
   fl_chart: ^0.55.0
   flutter_live_data: ^2.1.0
   time_chart: ^0.5.2
-  http: ^0.13.0
+  http:
+  particles_flutter: ^0.1.1
+  searchfield: ^0.6.8
+  dropdown_search: ^3.0.1
+  syncfusion_flutter_charts: ^20.2.44
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

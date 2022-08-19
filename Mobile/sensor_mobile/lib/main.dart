@@ -1,7 +1,7 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:sensor_mobile/LoginScreen.dart';
-import 'package:http/http.dart' as http;
 
 //Sensor APP for Intern Project
 
@@ -15,7 +15,7 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 void main() {
-  HttpOverrides.global = new MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MaterialApp(
     title: "Sensor App",
     debugShowCheckedModeBanner: false,
