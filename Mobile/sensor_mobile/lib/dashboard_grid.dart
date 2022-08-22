@@ -47,17 +47,20 @@ class StatsGridState extends State<StatsGrid> {
 
         for (int i = 0; i < len; i++) {
           print(posts![i].date);
+
           String zaman = posts![i].date.day.toString() +
               "." +
               posts![i].date.month.toString() +
               "." +
-              posts![i].date.year.toString() +
-              "\n" +
+              posts![i]
+                  .date
+                  .year
+                  .toString()
+                  .substring(posts![i].date.year.toString().length - 2) +
+              " - " +
               posts![i].date.hour.toString() +
               ":" +
-              posts![i].date.minute.toString() +
-              ":" +
-              posts![i].date.second.toString();
+              posts![i].date.minute.toString();
           chartData.add(BatteryData(
               zaman, posts![i].pil.toDouble(), posts![i].sicaklik.toInt()));
         }
@@ -117,9 +120,11 @@ class StatsGridState extends State<StatsGrid> {
                       color: Colors.white,
                     ),
                     decoration: InputDecoration(
+                      hintText: "0 to 3",
                       contentPadding: const EdgeInsets.only(bottom: 5.0),
                       border: InputBorder.none,
-                      hintStyle: kHintTextStyle,
+                      hintStyle:
+                          TextStyle(color: Colors.white.withOpacity(0.6)),
                     ),
                   ),
                 ),
@@ -309,8 +314,6 @@ class StatsGridState extends State<StatsGrid> {
         height: 300,
         child: SfCartesianChart(
             zoomPanBehavior: ZoomPanBehavior(
-
-                /// To enable the pinch zooming as true.
                 enablePinching: true,
                 zoomMode: ZoomMode.x,
                 enablePanning: true,
@@ -342,6 +345,7 @@ class StatsGridState extends State<StatsGrid> {
                 overflowMode: LegendItemOverflowMode.none,
                 isVisible: true),
             primaryXAxis: CategoryAxis(
+                labelRotation: 90,
                 labelIntersectAction: AxisLabelIntersectAction.multipleRows,
                 maximumLabels: 100,
                 edgeLabelPlacement: EdgeLabelPlacement.shift,
