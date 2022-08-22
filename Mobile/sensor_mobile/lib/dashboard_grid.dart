@@ -346,7 +346,7 @@ class StatsGridState extends State<StatsGrid> {
                 isVisible: true),
             primaryXAxis: CategoryAxis(
                 labelRotation: 90,
-                labelIntersectAction: AxisLabelIntersectAction.multipleRows,
+                labelIntersectAction: AxisLabelIntersectAction.trim,
                 maximumLabels: 100,
                 edgeLabelPlacement: EdgeLabelPlacement.shift,
                 autoScrollingDelta: 5,

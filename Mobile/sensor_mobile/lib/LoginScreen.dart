@@ -1,8 +1,11 @@
+import 'package:dio/src/response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:particles_flutter/particles_flutter.dart';
 import 'package:sensor_mobile/SignUpScreen.dart';
 import 'package:sensor_mobile/constants.dart';
+import 'package:sensor_mobile/services/remote_service.dart';
 
 import 'apiviewScreen.dart';
 import 'homeScreen.dart';
@@ -13,8 +16,37 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  Future<void> loginUsers() async {
+    //show snackbar to indicate loading
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(seconds: 30),
+      content: const Text('Signing In'),
+      backgroundColor: Colors.green.shade300,
+    ));
+
+    //get response from ApiClient
+    dynamic res = await RemoteService().login(
+      _usernameForLogin.text,
+      _LoginPassword.text,
+    );
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+    //if there is no error, get the user's accesstoken and pass it to HomeScreen
+    if (res == true) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => homeScreen()));
+    } else {
+      //if an error occurs, show snackbar with error message
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error: Wrong username or password'),
+        backgroundColor: Colors.red.shade300,
+      ));
+    }
+  }
+
   bool _rememberMe = false;
-  final _emailForLogin = TextEditingController();
+  final _usernameForLogin = TextEditingController();
   final _LoginPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -73,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text(
-          'Email',
+          'Username',
           style: kLabelStyle,
         ),
         const SizedBox(height: 10.0),
@@ -83,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 60.0,
           child: TextField(
             onChanged: (value) {},
-            controller: _emailForLogin,
+            controller: _usernameForLogin,
             keyboardType: TextInputType.emailAddress,
             style: const TextStyle(
               color: koyumavi,
@@ -96,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Icons.email,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Email',
+              hintText: 'Enter your Username',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -175,8 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => homeScreen()));
+          loginUsers();
         },
         padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
