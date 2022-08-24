@@ -1,3 +1,4 @@
+import 'package:sensor_mobile/models/alerts.dart';
 import 'package:sensor_mobile/models/post.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
@@ -76,5 +77,20 @@ class RemoteService {
           "/" +
           oldusername),
     );
+  }
+
+  Future<List<Alerts>?> getAlerts() async {
+    var client = http.Client();
+    var uri = Uri.parse(
+        'https://apimqtt.innovaarge.site/api/Alerts/getAllAlertsById/' +
+            deviceid);
+    var response = await client.get(uri);
+    if (response.statusCode == 200) {
+      print("STATuS CODE");
+      print(response.statusCode);
+      var json = response.body;
+      return alertsFromJson(json);
+    }
+    return null;
   }
 }

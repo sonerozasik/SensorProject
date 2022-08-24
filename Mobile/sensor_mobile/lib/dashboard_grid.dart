@@ -7,6 +7,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:sensor_mobile/models/post.dart';
 import 'package:sensor_mobile/services/remote_service.dart';
 
+import 'models/alerts.dart';
+
 class StatsGrid extends StatefulWidget {
   @override
   StatsGridState createState() => StatsGridState();
@@ -22,7 +24,9 @@ class StatsGridState extends State<StatsGrid> {
     BatteryData("2", 35, 2),
   ];
   List<Post>? posts;
+  List<Alerts>? alerts;
   var len = 0;
+  var alertlen = 0;
   var lastheat = 0;
   late bool isPointerMoved;
   var lastbattery = 0;
@@ -38,6 +42,7 @@ class StatsGridState extends State<StatsGrid> {
   getdata1() async {
     chartData.clear();
     posts = await RemoteService().getPosts();
+    alerts = await RemoteService().getAlerts();
     print("POSTS");
     if (posts != null) {
       setState(() {
@@ -71,7 +76,7 @@ class StatsGridState extends State<StatsGrid> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 860,
+      height: 840,
       child: Column(
         children: <Widget>[
           SizedBox(
@@ -79,11 +84,9 @@ class StatsGridState extends State<StatsGrid> {
           ),
           Container(
             alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(201, 103, 149, 182),
-              borderRadius: BorderRadius.all(Radius.circular(
-                      20.0) //                 <--- border radius here
-                  ),
+            decoration: BoxDecoration(
+              color: backgroundcolor.withOpacity(0.6),
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
             width: 200,
             child: Row(
@@ -134,11 +137,11 @@ class StatsGridState extends State<StatsGrid> {
           Row(
             children: <Widget>[
               _buildStatCard('Last Heat Value', lastheat.toString() + "°",
-                  const Color.fromARGB(255, 115, 148, 170)),
+                  backgroundcolor.withOpacity(0.7)),
               _buildStatCard(
                 'Battery Life',
                 lastbattery.toString() + '%',
-                const Color.fromARGB(255, 63, 139, 158),
+                backgroundcolor.withOpacity(0.7),
               ),
             ],
           ),
@@ -148,7 +151,71 @@ class StatsGridState extends State<StatsGrid> {
           ),
           Center(
             child: Linechart(context),
-          )
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          AlertList(),
+        ],
+      ),
+    );
+  }
+
+  Container AlertList() {
+    return Container(
+      margin: const EdgeInsets.all(.0),
+      padding: const EdgeInsets.all(0),
+      decoration: BoxDecoration(
+          border: Border.all(
+            color: backgroundcolor,
+          ),
+          borderRadius: BorderRadius.circular(5)),
+      child: Column(
+        children: [
+          Text(
+            "Alerts",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: backgroundcolor),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                  top: BorderSide(
+                      width: 2, color: backgroundcolor.withOpacity(0.5))),
+            ),
+            height: 200,
+            child: alerts == null
+                ? null
+                : ListView.builder(
+                    itemCount: alerts!.length,
+                    prototypeItem: ListTile(
+                      title: Text(alerts!.first.message),
+                    ),
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        visualDensity: VisualDensity.comfortable,
+                        dense: true,
+                        title: Text(
+                          alerts![index].message,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        subtitle: Text(alerts![index].date.toString()),
+                        trailing: alerts![index].message.contains("Succes")
+                            ? Icon(
+                                Icons.check,
+                                color: backgroundcolor.withOpacity(0.7),
+                              )
+                            : Icon(
+                                Icons.warning,
+                                color: backgroundcolor.withOpacity(0.7),
+                              ),
+                      );
+                    },
+                  ),
+          ),
         ],
       ),
     );
@@ -159,14 +226,14 @@ class StatsGridState extends State<StatsGrid> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
-        color: const Color.fromARGB(255, 231, 239, 245),
+        color: Colors.white.withAlpha(180),
         child: Column(
           children: [
             const SizedBox(height: 10),
             Container(
               alignment: Alignment.center,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(201, 103, 149, 182),
+              decoration: BoxDecoration(
+                color: backgroundcolor.withOpacity(0.5),
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
               ),
               width: 200,

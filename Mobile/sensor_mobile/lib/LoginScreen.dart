@@ -6,6 +6,7 @@ import 'package:particles_flutter/particles_flutter.dart';
 import 'package:sensor_mobile/SignUpScreen.dart';
 import 'package:sensor_mobile/constants.dart';
 import 'package:sensor_mobile/services/remote_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'apiviewScreen.dart';
 import 'homeScreen.dart';
@@ -16,6 +17,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   @override
   Future<void> loginUsers() async {
     //show snackbar to indicate loading
@@ -206,7 +209,9 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () {
+        onPressed: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setBool('rememberMe', _rememberMe);
           loginUsers();
         },
         padding: const EdgeInsets.all(15.0),

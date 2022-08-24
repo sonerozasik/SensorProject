@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sensor_mobile/LoginScreen.dart';
 import 'package:sensor_mobile/changeUsernameScreen.dart';
 import 'package:sensor_mobile/changepasswordScreen.dart';
 import 'package:sensor_mobile/customAppBar.dart';
 import 'package:sensor_mobile/dashboard_grid.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class homeScreen extends StatefulWidget {
   @override
@@ -49,6 +51,18 @@ class _homeScreenState extends State<homeScreen> {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ChangePwScreen()));
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+              ),
+              title: const Text('Logout'),
+              onTap: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.remove('rememberMe');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
               },
             ),
           ],
