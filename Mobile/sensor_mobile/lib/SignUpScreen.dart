@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sensor_mobile/LoginScreen.dart';
 import 'package:sensor_mobile/constants.dart';
+import 'package:sensor_mobile/services/remote_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -10,9 +12,83 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _fullName = TextEditingController();
-  final _email = TextEditingController();
+  final _username = TextEditingController();
   final _password = TextEditingController();
   @override
+  Future<void> _handleRegister() async {
+    //show snackbar to indicate loading
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: const Text('Signing Up...'),
+      backgroundColor: Colors.green.shade300,
+    ));
+
+    //the user data to be sent
+    Map<String, dynamic> userData = {
+      "username": _username.text,
+      "password": _password.text,
+      "fullname": _fullName.text,
+    };
+
+    //get response from ApiClient
+    Response<dynamic> res = await RemoteService().registerUser(userData);
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+    //checks if there is no error in the response body.
+    //if error is not present, navigate the users to Login Screen.
+    if (res.statusCode == 200) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                backgroundColor: const Color.fromARGB(255, 46, 100, 114),
+                title: const Text(
+                  'Succesfully registered ! ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                actions: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15))),
+                            alignment: Alignment.center,
+                            backgroundColor:
+                                const Color.fromARGB(255, 64, 138, 156),
+                            padding: const EdgeInsets.all(16.0),
+                            primary: Colors.white,
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen())),
+                          },
+                          child: const Text('OK',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                              )),
+                        )
+                      ])
+                ],
+              ));
+    } else {
+      //if error is present, display a snackbar showing the error messsage
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error: ${res.statusCode}'),
+        backgroundColor: Colors.red.shade300,
+      ));
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -44,7 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(height: 20.0),
                     _buildNameTF(),
                     const SizedBox(height: 30.0),
-                    _buildEmailTF(),
+                    _buildUsernameTF(),
                     const SizedBox(
                       height: 30.0,
                     ),
@@ -97,12 +173,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _buildEmailTF() {
+  Widget _buildUsernameTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Text(
-          'Email',
+          'Username',
           style: kLabelStyle,
         ),
         const SizedBox(height: 10.0),
@@ -111,8 +187,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            controller: _email,
-            keyboardType: TextInputType.emailAddress,
+            controller: _username,
+            keyboardType: TextInputType.text,
             style: const TextStyle(
               color: koyumavi,
               fontFamily: 'OpenSans',
@@ -121,10 +197,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               border: InputBorder.none,
               contentPadding: const EdgeInsets.only(top: 14.0),
               prefixIcon: const Icon(
-                Icons.email,
+                Icons.person,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Email',
+              hintText: 'Enter your Username',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -176,50 +252,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    backgroundColor: const Color.fromARGB(255, 46, 100, 114),
-                    title: const Text(
-                      'Succesfully registered ! ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    actions: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15))),
-                                alignment: Alignment.center,
-                                backgroundColor:
-                                    const Color.fromARGB(255, 64, 138, 156),
-                                padding: const EdgeInsets.all(16.0),
-                                primary: Colors.white,
-                                textStyle: const TextStyle(fontSize: 20),
-                              ),
-                              onPressed: () => {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginScreen())),
-                              },
-                              child: const Text('OK',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  )),
-                            )
-                          ])
-                    ],
-                  ));
+          _handleRegister();
         },
         padding: const EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(

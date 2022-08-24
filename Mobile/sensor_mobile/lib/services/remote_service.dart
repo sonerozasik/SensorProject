@@ -39,4 +39,42 @@ class RemoteService {
       return e.response!.data;
     }
   }
+
+  Future<Response> registerUser(Map<String, dynamic>? userData) async {
+    try {
+      Response response = await _dio.post(
+        'https://apimqtt.innovaarge.site/api/Users/register',
+        data: userData, //REQUEST BODY
+      );
+      //returns the successful json object
+      return response;
+    } on DioError catch (e) {
+      //returns the error object if there is
+      return e.response!;
+    }
+  }
+
+  Future<http.Response> updatePassword(
+      String username, String oldpassword, newpassword) {
+    return http.put(
+      Uri.parse('https://apimqtt.innovaarge.site/api/Users/changePassword' +
+          newpassword +
+          "/" +
+          oldpassword +
+          "/" +
+          username),
+    );
+  }
+
+  Future<http.Response> updateUsername(
+    String oldusername,
+    String newusername,
+  ) {
+    return http.put(
+      Uri.parse('https://apimqtt.innovaarge.site/api/Users/' +
+          newusername +
+          "/" +
+          oldusername),
+    );
+  }
 }
