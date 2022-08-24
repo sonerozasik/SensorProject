@@ -57,7 +57,7 @@ class RemoteService {
   Future<http.Response> updatePassword(
       String username, String oldpassword, newpassword) {
     return http.put(
-      Uri.parse('https://apimqtt.innovaarge.site/api/Users/changePassword' +
+      Uri.parse('https://apimqtt.innovaarge.site/api/Users/changePassword/' +
           newpassword +
           "/" +
           oldpassword +
@@ -71,7 +71,7 @@ class RemoteService {
     String newusername,
   ) {
     return http.put(
-      Uri.parse('https://apimqtt.innovaarge.site/api/Users/' +
+      Uri.parse('https://apimqtt.innovaarge.site/api/Users/changeUsername/' +
           newusername +
           "/" +
           oldusername),

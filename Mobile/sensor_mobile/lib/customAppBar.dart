@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
@@ -13,7 +14,14 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           Scaffold.of(context).openDrawer();
         },
       ),
-      actions: <Widget>[],
+      title: Container(
+        width: 200,
+        child: SvgPicture.asset(
+          "assets/innova.svg",
+          color: Colors.white,
+        ),
+      ),
+      centerTitle: true,
     );
   }
 
