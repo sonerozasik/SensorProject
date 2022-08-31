@@ -56,3 +56,10 @@
 /api/Users/find/{username} (GET) => username parametresini içeren tüm kullanıcıları döndürür.
 
 # Mobile APP Screenshots
+![Ekran görüntüsü 2022-08-28 143659](https://user-images.githubusercontent.com/56596454/187672483-d5aafb81-8d0f-4aa4-9532-d3fdaa48b712.jpg)
+![Ekran görüntüsü 2022-08-28 143716](https://user-images.githubusercontent.com/56596454/187672505-5e20b7f4-8ca3-4563-aac9-0fd060a844fc.jpg)
+![Ekran görüntüsü 2022-08-28 143747](https://user-images.githubusercontent.com/56596454/187672527-73f5c72c-5a9d-4248-85c6-5e9e9fbc60cd.jpg)
+![Ekran görüntüsü 2022-08-28 143804](https://user-images.githubusercontent.com/56596454/187672532-7569b204-3dca-4357-b5ce-0404ac12d820.jpg)
+![Ekran görüntüsü 2022-08-28 143833](https://user-images.githubusercontent.com/56596454/187672558-10bdd8bc-bd03-449c-a786-f1f44e006173.jpg)
+![Ekran görüntüsü 2022-08-28 143845](https://user-images.githubusercontent.com/56596454/187672580-8f50f621-bdb7-4bc7-86ac-84bb30a5a1f0.jpg)
+![Ekran görüntüsü 2022-08-28 143859](https://user-images.githubusercontent.com/56596454/187672743-afe89f80-3e42-42bc-b807-8f526e7573dc.jpg)
