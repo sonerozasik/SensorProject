@@ -55,3 +55,4 @@
 
 /api/Users/find/{username} (GET) => username parametresini içeren tüm kullanıcıları döndürür.
 
+# Mobile APP Screenshots
